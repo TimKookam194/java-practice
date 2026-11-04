@@ -64,4 +64,24 @@ class MemberServiceTest {
         assertTrue(updated);
         assertEquals("0800000000", service.findByName("Tim").get(0).getPhone());
     }
+    @Test
+    void addWithBlankNameShouldThrow() {
+        MemberService service = new MemberService();
+        assertThrows(IllegalArgumentException.class, () ->
+                service.add(new Member("  ", "tim@mail.com", "0812345678")));
+    }
+
+    @Test
+    void addWithInvalidEmailShouldThrow() {
+        MemberService service = new MemberService();
+        assertThrows(IllegalArgumentException.class, () ->
+                service.add(new Member("Tim", "timmail.com", "0812345678")));
+    }
+
+    @Test
+    void addWithInvalidPhoneShouldThrow() {
+        MemberService service = new MemberService();
+        assertThrows(IllegalArgumentException.class, () ->
+                service.add(new Member("Tim", "tim@mail.com", "abc123")));
+    }
 }
