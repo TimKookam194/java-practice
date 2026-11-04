@@ -1,7 +1,8 @@
 package com.tim.practice;
+import java.util.List;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class MemberService {
     private final List<Member> members = new ArrayList<>();
@@ -17,5 +18,14 @@ public class MemberService {
 
     public int count() {
         return members.size();
+    }
+    public List<Member> findByName(String keyword) {
+        List<Member> result = new ArrayList<>();
+        for (Member m : members) {
+            if (m.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                result.add(m);
+            }
+        }
+        return result;
     }
 }
