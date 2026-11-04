@@ -28,4 +28,17 @@ public class MemberService {
         }
         return result;
     }
+    public boolean removeByEmail(String email) {
+        return members.removeIf(m -> m.getEmail().equalsIgnoreCase(email));
+    }
+
+    public boolean updatePhone(String email, String newPhone) {
+        for (Member m : members) {
+            if (m.getEmail().equalsIgnoreCase(email)) {
+                m.setPhone(newPhone);
+                return true;
+            }
+        }
+        return false;
+    }
 }

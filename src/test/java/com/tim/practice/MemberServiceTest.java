@@ -37,4 +37,31 @@ class MemberServiceTest {
         MemberService service = new MemberService();
         assertTrue(service.findByName("nobody").isEmpty());
     }
+    @Test
+    void removeByEmailShouldDeleteMember() {
+        MemberService service = new MemberService();
+        service.add(new Member("Tim", "tim@mail.com", "0812345678"));
+
+        boolean removed = service.removeByEmail("tim@mail.com");
+
+        assertTrue(removed);
+        assertEquals(0, service.count());
+    }
+
+    @Test
+    void removeByEmailShouldReturnFalseWhenNotFound() {
+        MemberService service = new MemberService();
+        assertFalse(service.removeByEmail("nobody@mail.com"));
+    }
+
+    @Test
+    void updatePhoneShouldChangePhone() {
+        MemberService service = new MemberService();
+        service.add(new Member("Tim", "tim@mail.com", "0812345678"));
+
+        boolean updated = service.updatePhone("tim@mail.com", "0800000000");
+
+        assertTrue(updated);
+        assertEquals("0800000000", service.findByName("Tim").get(0).getPhone());
+    }
 }
